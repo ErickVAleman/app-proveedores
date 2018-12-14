@@ -4,7 +4,7 @@
   "description": "App para ver lista de articulos por proveedores de SPA",
   "main": "index.js",
   "scripts": {
-    "dev": "DEBUG=* next",
+    "dev": "DEBUG=express next",
     "build": "NODE_ENV=production next build",
     "start": "next start"
   },

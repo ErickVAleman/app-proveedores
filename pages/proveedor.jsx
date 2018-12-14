@@ -5,7 +5,7 @@ export default () => (
     <div>
         <Layout title="Proveedor" >
             Hello
-            <Link href="/">Go back</Link>
+            <Link prefetch href="/">Go back</Link>
         </Layout>
     </div>
 )

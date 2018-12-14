@@ -1,6 +1,6 @@
 
 import Layout from "../components/Layout";
-import { withStyles, withWidth } from "@material-ui/core"
+import { withStyles, withWidth, Grid } from "@material-ui/core"
 import compose from "recompose/compose";
 import ListaProveedores from "../components/ListaProveedores";
 import ViewBrowser from "../components/ViewBrowser";
@@ -11,12 +11,15 @@ import { pushDataProveedores } from "../store";
 
 const data = [];
 for( let i = 0; i <= 100; i++) {
-    data.push({ title: `Proveedor ${i}`, subtitle: `${(Math.round(Math.random() * 1000))} articulos` })
+    data.push({ id: i + 1 ,title: `Proveedor ${i}`, subtitle: `${(Math.round(Math.random() * 1000))} articulos` })
 }
 
 const styles = theme => ({
     root: {
         flexGrow: 1,
+    },
+    browser: {
+        margin: 10
     },
     container: {
         display: 'flex',
@@ -26,9 +29,12 @@ const styles = theme => ({
 
 const Index = ({ classes, dataProveedores }) => (
     <div>
-        <Layout title="Productos DSSPA" >
-            <div className={classes.root}>
+        <Layout title="Productos DSSPA" browser={
+            <Grid container direction="row" justify="flex-end" alignItems="center">
                 <ViewBrowser inputLabel="Buscar" />
+            </Grid>
+        } >
+            <div className={classes.root}>
                 <div className={classes.container} >
                     <ListaProveedores dataProveedor={dataProveedores} />
                 </div>
@@ -38,10 +44,11 @@ const Index = ({ classes, dataProveedores }) => (
 );
 
 Index.getInitialProps = async ({ store, isServer, pathname, query }) => {
-    store.dispatch(pushDataProveedores(data))
-    const { _dataProveedores } = await store.getState()
+
+    store.dispatch(pushDataProveedores(data));
+    const { _dataProveedores } = await store.getState();
     return {
-        dataProveedores: _dataProveedores
+        dataProveedores: _dataProveedores,
     }
 }
 const mapDispathToProps = dispatch => {

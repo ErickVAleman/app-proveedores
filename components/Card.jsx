@@ -1,14 +1,16 @@
 import { 
     withStyles,
     Avatar,
-    Card,
-    CardHeader,
-    IconButton,
-    CardActionArea
+    Paper,
+    Grid,
+    Typography,
+    Fab,
+    IconButton
 } from "@material-ui/core";
 import UserIcon from "@material-ui/icons/SupervisedUserCircle";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import PropTypes from "prop-types";
+import Link from "next/link"
 
 const styles = theme => ({
     root: {
@@ -19,37 +21,50 @@ const styles = theme => ({
         backgroundColor: "#ff5722"
     },
     card: {
-        minWidth: 300
+        minWidth: 300,
+        minHeight: 50,
+        padding: 10,
     }
 })
 
-const MyCard = ({ children, classes, title, subtitle, key }) => (
+const MyCard = ({ children, classes, title, subtitle, avatar, id }) => (
     <div className={ classes.root } >
-        <Card className={ classes.card } key={`Card-${key}`} >
-            <CardHeader
-                title={ title }
-                subheader={ subtitle }
-                action={
-                    <IconButton>
-                        <KeyboardArrowRight />
-                    </IconButton>
-                }
-                avatar={
-                    <Avatar className={ classes.avatar } >
-                        <UserIcon />
+        <Paper className={classes.card}>
+            <Grid container xs >
+                <Grid item >
+                    <Avatar className={classes.avatar} >
+                        { avatar ? avatar : <UserIcon /> }
                     </Avatar>
-                } />
-            {children}
-        </Card>
+                </Grid>
+                <Grid item direction="column" container spacing={16} xs >
+                    <Grid item >
+                        <Typography color="primary" variant="title" component="title">
+                            { title }
+                        </Typography>
+                        <Typography variant="subtitle1">
+                            { subtitle } 
+                        </Typography>
+                    </Grid>
+                </Grid>
+                <Grid item>
+                    <Link prefetch href={`/proveedor?id=${id ? id : title}`} >
+                        <IconButton color="secondary" aria-label="Go" >
+                            <KeyboardArrowRight />
+                        </IconButton>
+                    </Link>
+                </Grid>
+            </Grid>
+        </Paper>
     </div>
 );
 
 MyCard.propTypes = {
     children: PropTypes.element,
-    classes: PropTypes.object.isRequired,
+    classes: PropTypes.object,
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string.isRequired,
-    key: PropTypes.number
+    avatar: PropTypes.element,
+    id: PropTypes.string.isRequired
 };
 
 const withStylesMyCard = withStyles(styles)(MyCard);

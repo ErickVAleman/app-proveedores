@@ -1,6 +1,6 @@
 import { AppBar, Toolbar, Typography, IconButton, withStyles } from "@material-ui/core";
 import Menu from "@material-ui/icons/Menu";
-import PropTypes from "prop-types";
+import PropTypes, { shape } from "prop-types";
 
 const styles = theme => ({
     root: {
@@ -19,7 +19,10 @@ const MyAppBar = ({ children, title, classes }) => (
                     <Menu />
                 </IconButton>
                 <Typography color="inherit" variant="title" >{title}</Typography>
-                {children}
+                <div style={{ flexGrow: 1 }} />
+                <div style={{ position: "relative", marginLeft: 0 }} >
+                    {children}
+                </div>
             </Toolbar>
         </AppBar>
     </div>
