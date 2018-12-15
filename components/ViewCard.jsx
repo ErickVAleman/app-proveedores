@@ -4,7 +4,6 @@ import {
     Paper,
     Grid,
     Typography,
-    Fab,
     IconButton
 } from "@material-ui/core";
 import UserIcon from "@material-ui/icons/SupervisedUserCircle";
@@ -27,10 +26,10 @@ const styles = theme => ({
     }
 })
 
-const MyCard = ({ children, classes, title, subtitle, avatar, id }) => (
+const MyCard = ({ classes, title, subtitle, avatar, id }) => (
     <div className={ classes.root } >
         <Paper className={classes.card}>
-            <Grid container xs >
+            <Grid container >
                 <Grid item >
                     <Avatar className={classes.avatar} >
                         { avatar ? avatar : <UserIcon /> }
@@ -59,12 +58,11 @@ const MyCard = ({ children, classes, title, subtitle, avatar, id }) => (
 );
 
 MyCard.propTypes = {
-    children: PropTypes.element,
     classes: PropTypes.object,
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string.isRequired,
     avatar: PropTypes.element,
-    id: PropTypes.string.isRequired
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 const withStylesMyCard = withStyles(styles)(MyCard);

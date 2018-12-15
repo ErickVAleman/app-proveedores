@@ -1,8 +1,8 @@
 
 import Layout from "../components/Layout";
-import { withStyles, withWidth, Grid } from "@material-ui/core"
+import { withStyles, withWidth, Grid, LinearProgress } from "@material-ui/core"
 import compose from "recompose/compose";
-import ListaProveedores from "../components/ListaProveedores";
+import ViewListProveedores from "../components/SmartListProveedores";
 import ViewBrowser from "../components/ViewBrowser";
 // Redux
 import { bindActionCreators } from "redux";
@@ -10,9 +10,9 @@ import { connect } from "react-redux";
 import { pushDataProveedores } from "../store";
 
 const data = [];
-for( let i = 0; i <= 100; i++) {
-    data.push({ id: i + 1 ,title: `Proveedor ${i}`, subtitle: `${(Math.round(Math.random() * 1000))} articulos` })
-}
+// for( let i = 0; i <= 100; i++) {
+//     data.push({ id: i + 1 ,title: `Proveedor ${i}`, subtitle: `${(Math.round(Math.random() * 1000))} articulos` })
+// }
 
 const styles = theme => ({
     root: {
@@ -35,16 +35,13 @@ const Index = ({ classes, dataProveedores }) => (
             </Grid>
         } >
             <div className={classes.root}>
-                <div className={classes.container} >
-                    <ListaProveedores dataProveedor={dataProveedores} />
-                </div>
+                <ViewListProveedores data={dataProveedores} />
             </div>
         </Layout>
     </div>
 );
 
 Index.getInitialProps = async ({ store, isServer, pathname, query }) => {
-
     store.dispatch(pushDataProveedores(data));
     const { _dataProveedores } = await store.getState();
     return {
